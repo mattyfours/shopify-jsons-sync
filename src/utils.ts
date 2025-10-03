@@ -1,5 +1,5 @@
 import {create} from '@actions/glob'
-import {readFile, writeFile} from 'fs/promises'
+import {readFile, writeFile, mkdir} from 'fs/promises'
 import {existsSync} from 'fs'
 import deepmerge from 'deepmerge'
 import {rmRF} from '@actions/io'
@@ -78,7 +78,10 @@ export const cleanRemoteFiles = async (): Promise<void> => {
   const remoteDir = 'remote'
 
   if (!existsSync(remoteDir)) {
-    debug(`Skipping cleanRemoteFiles: ${remoteDir} directory not found`)
+    debug(
+      `Skipping cleanRemoteFiles: ${remoteDir} directory not found, creating it`
+    )
+    await mkdir(remoteDir, {recursive: true})
     return
   }
 

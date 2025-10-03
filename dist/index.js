@@ -154,8 +154,14 @@ const readJsonFile = async (file) => {
 };
 exports.readJsonFile = readJsonFile;
 const cleanRemoteFiles = async () => {
+    const remoteDir = 'remote';
+    if (!(0, fs_1.existsSync)(remoteDir)) {
+        (0, core_1.debug)(`Skipping cleanRemoteFiles: ${remoteDir} directory not found, creating it`);
+        await (0, promises_1.mkdir)(remoteDir, { recursive: true });
+        return;
+    }
     try {
-        (0, io_1.rmRF)('remote');
+        await (0, io_1.rmRF)(remoteDir);
     }
     catch (error) {
         if (error instanceof Error)
