@@ -43,12 +43,19 @@ async function run(): Promise<void> {
       `Syncing JSON files from ${syncThemeInfo} to target theme ${targetThemeId}`
     )
 
+    const execArgs = [
+      'theme', 'pull',
+      '--only', 'config/*_data.json',
+      '--only', 'templates/**/*.json',
+      '--only', 'locales/*.json',
+      ...(sourceThemeId ? ['--theme', sourceThemeId] : ['--live']),
+      '--path', 'remote',
+      '--store', store,
+      '--verbose'
+    ]
+
     // STEP 1: Pull JSON files FROM the source theme (or live theme)
-    await exec(
-      `shopify theme pull --only config/*_data.json --only templates/**/*.json --only locales/*.json ${themeFlag} --path remote --store ${store} --verbose`,
-      [],
-      EXEC_OPTIONS
-    )
+    await exec('shopify', execArgs, EXEC_OPTIONS);
 
     // STEP 2: Process and prepare the JSON files for syncing
     const localeFilesToPush = await syncLocaleAndSettingsJSON()
