@@ -199,7 +199,7 @@ const sendFilesWithPathToShopify = async (files, { targetThemeId, store }) => {
     await execShellCommand(`shopify theme ${[
         'push',
         pushOnlyCommand,
-        `--theme ${targetThemeId}`,
+        `--theme "${targetThemeId}"`,
         '--store',
         store,
         '--verbose',
