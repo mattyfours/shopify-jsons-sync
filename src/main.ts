@@ -48,7 +48,7 @@ async function run(): Promise<void> {
       '--only', 'config/*_data.json',
       '--only', 'templates/**/*.json',
       '--only', 'locales/*.json',
-      ...(sourceThemeId ? ['--theme', sourceThemeId] : ['--live']),
+      ...(sourceThemeId ? ['--theme', `"${sourceThemeId}"`] : ['--live']),
       '--path', 'remote',
       '--store', store,
       '--verbose'
