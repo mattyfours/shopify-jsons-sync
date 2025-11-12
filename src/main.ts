@@ -34,7 +34,7 @@ async function run(): Promise<void> {
 
     // Determine source: use source-theme if provided, otherwise use live theme
     // This controls WHERE we pull the JSON files FROM
-    const themeFlag = sourceThemeId ? `--theme '${sourceThemeId}'` : '--live'
+    const themeFlag = sourceThemeId ? `--theme "${sourceThemeId}"` : '--live'
     const syncThemeInfo = sourceThemeId
       ? `theme ${sourceThemeId}`
       : 'live theme'
